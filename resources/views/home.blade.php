@@ -251,19 +251,19 @@ type="text/javascript"
 <script type="text/javascript">
   var firebaseConfig = {
     apiKey: "your Api key",
-    authDomain: "test-5458d.firebaseapp.com",
-    databaseURL: "https://test-5458d.firebaseio.com",
-    projectId: "test-5458d",
-    storageBucket: "test-5458d.appspot.com",
-    messagingSenderId: "573948303160",
-    appId: "1:573948303160:web:9d639639ab0970b7ff53cd",
-    measurementId: "G-W6HCZ1PJP7"
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: ""
   };
   firebase.initializeApp(firebaseConfig);
   var database = firebase.database();
   firebase.analytics();
   // Initialize Firebase
-  var starCountRef = firebase.database().ref('user');
+  var starCountRef = firebase.database().ref('');
   starCountRef.on('value', function(snapshot) {
     initialize();
   });
