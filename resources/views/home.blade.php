@@ -236,7 +236,7 @@
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAww5P-1Eiv_-FjBi8gFOeHggcPdnmRqc8&libraries=places"
+src="https://maps.googleapis.com/maps/api/js?key=your API key&libraries=places"
 type="text/javascript"
 >
 </script>
