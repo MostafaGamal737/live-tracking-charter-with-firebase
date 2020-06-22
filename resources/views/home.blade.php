@@ -250,7 +250,7 @@ type="text/javascript"
 <script type="text/javascript" src="{{asset('js/search.js')}}"/></script>
 <script type="text/javascript">
   var firebaseConfig = {
-    apiKey: "AIzaSyAjv-nKvdFxsMXcmAdbcRpl7F5-AU4SlvU",
+    apiKey: "your Api key",
     authDomain: "test-5458d.firebaseapp.com",
     databaseURL: "https://test-5458d.firebaseio.com",
     projectId: "test-5458d",
