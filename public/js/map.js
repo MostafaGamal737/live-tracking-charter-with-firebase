@@ -3,10 +3,15 @@
   //}, 20000);
 
   //start initialize
+
   var counter=0;
   var map;
   var del=0;
   var gmarkers = [];
+  var newmarkers = [];
+  var liens = [];
+
+
   var myLatlng = new google.maps.LatLng(31.2267584555,29.9606269222);
   var style=styl();
   var mapOptions = {
@@ -34,8 +39,18 @@
     }
 
   }
+  function deleteN(){
+    for(i=0; i<newmarkers.length; i++){
+      newmarkers[i].setMap(null);
+    }
 
+  }
+  function deleteL(){
+    for(i=0; i<liens.length; i++){
+      liens[i].setMap(null);
+    }
 
+  }
 
 
   function initialize() {
@@ -43,12 +58,14 @@
     if (counter==0) {
       map=create();
       counter++;
-
+      intmarkers=gmarkers;
     }
-
     $.get('/getdata', function(data){
-      if (del>data.length) {
+      if (del>=data.length) {
           deletem();
+          deleteN();
+          deleteL();
+
       }
       for (var i = 0; i < data.length; i++) {
 
@@ -60,7 +77,36 @@
           title:data[i]["name"],
 
         });
+       if (data[i]['latn']!=0) {
+         var myLatlng2 = new google.maps.LatLng(data[i]["latn"],data[i]["lngn"]);
+         var marker1 = new google.maps.Marker({
+           position: myLatlng2,
+           map: map,
+           icon:icon,
+           title:data[i]["name"],
+
+         });
+         newmarkers.push(marker1);
+       }
         gmarkers.push(marker);
+        if (data[i]["latn"]!="0") {
+        var flightPlanCoordinates = [
+          {lat: parseFloat(data[i]["lat"]), lng:parseFloat( data[i]["lng"])},
+
+          {lat:parseFloat (data[i]["latn"]), lng: parseFloat(data[i]["lngn"])}
+              ];
+              var flightPath = new google.maps.Polyline({
+                path: flightPlanCoordinates,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+              });
+
+              flightPath.setMap(map);
+              liens.push(flightPath);
+            }
+
       }
        del=data.length;
     });
@@ -109,10 +155,24 @@
       strokeColor: "#ccc",
       strokeWeight: 0         // DON'T SHOW CIRCLE BORDER.
     });
+    /* drow a line
+    var flightPlanCoordinates = [
+            {lat: 37.772, lng: -122.214},
 
-  }
+            {lat: -27.467, lng: 153.027}
+          ];
+          var flightPath = new google.maps.Polyline({
+            path: flightPlanCoordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+          });
 
+          flightPath.setMap(map1);
 
+*/
+}
   function styl(){
     return   [
       {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
@@ -197,4 +257,4 @@
   }
   google.maps.event.addDomListener(window, 'load', initialize1);
 
-  //google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, 'load', initialize);

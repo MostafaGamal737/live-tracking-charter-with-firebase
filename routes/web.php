@@ -38,3 +38,4 @@ dd($an);
 //-------------firebaseController----------------
 Route::get('/getdata', 'firebaseController@get');
 Route::get('/set', 'firebaseController@set');
+Route::get('/update', 'firebaseController@update');

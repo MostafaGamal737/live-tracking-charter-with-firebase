@@ -12,8 +12,7 @@ putenv('SUPPRESS_GCLOUD_CREDS_WARNING=true');
 class firebaseController extends Controller
 {
 
-  public function get(){
-
+  public function firebaseConfig(){
     $firebase = (new Factory)
     ->withServiceAccount('firbase.json')
     ->withDatabaseUri('https://test-5458d.firebaseio.com/');
@@ -22,7 +21,12 @@ class firebaseController extends Controller
     $reference = $database->getReference("user");
 
     $key = $reference->push()->getKey();
-    $snapshot = $reference->getSnapshot();
+
+    return $reference;
+  }
+  public function get(){
+
+    $snapshot =$this->firebaseConfig()->getSnapshot();
     $arr=[];
     $data=array();
     //dd(($snapshot->getValue()));
@@ -33,6 +37,8 @@ class firebaseController extends Controller
       $arr["lat"]= $value["lat"];
       $arr["lng"]= $value["lng"];
       $arr["name"]= $value["name"];
+      $arr["lngn"]= $value["lngn"];
+      $arr["latn"]= $value["latn"];
       $data[]=$arr;
     }
     return ($data);
@@ -44,25 +50,30 @@ class firebaseController extends Controller
 
 
   public function set(){
-    $firebase = (new Factory)
-    ->withServiceAccount('firbase.json')
-    ->withDatabaseUri('https://test-5458d.firebaseio.com');
-
-    $database=$firebase->createDatabase();
-
-    $reference = $database->getReference("user");
-    $key = $reference->push()->getKey();
-    $snapshot = $reference->getSnapshot();
-
-
-
     //return  response()->json($snapshot->getValue());
-  $add=$reference->getChild("dkj")->set([
-      'date'=>'52',
-      'name'=>'noor',
-      'lat'=>'62.11',
-      'lng'=>'39.33'
+    $add=$this->firebaseConfig()->getChild("mmmm")->set([
+    'date'=>'52',
+    'name'=>'mossstafa',
+    'lat'=>'79.11',
+    'lng'=>'29.33',
+    'latn'=>"0",
+    'lngn'=>"0",
     ]);
-      dd(($snapshot->getValue()));
+    $snapshot =$this->firebaseConfig()->getSnapshot();
+    dd(($snapshot->getValue()));
+  }
+
+
+
+  public function update(){
+
+    $snapshot =$this->firebaseConfig()->getSnapshot();
+
+    $add=$this->firebaseConfig()->getChild("mmmm")->update([
+
+    'latn'=>'70.11',
+    'lngn'=>'79.33'
+    ]);
+    dd(($snapshot->getValue()));
   }
 }

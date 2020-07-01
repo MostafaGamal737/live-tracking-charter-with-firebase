@@ -3,8 +3,12 @@
 /public/storage
 /storage/*.key
 /vendor
+.idea
+.vscode
+.editorconfig
 .env
-.env.backup
+.phpstorm.meta.php
+_ide_helper.php
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
